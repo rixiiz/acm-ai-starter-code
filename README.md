@@ -3,6 +3,19 @@
 A small chatbot UI with a Node backend that stores the user's Gemini API key in
 a server-side session and proxies requests to the Gemini API.
 
+## Get a Gemini API key
+
+1. Open [Google AI Studio](https://aistudio.google.com/app/apikey) and sign in
+   with a Google account.
+2. Click **Create API key**. If prompted, pick (or create) a Google Cloud
+   project to attach the key to.
+3. Copy the key — it starts with `AIza...`. Paste it into the setup screen
+   when you start the app.
+
+The free tier is enough for casual development. The key is sent to the local
+backend once and held in an in-memory session; the browser only keeps an
+HttpOnly session cookie.
+
 ## Run it
 
 ```bash

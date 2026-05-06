@@ -36,19 +36,9 @@
 
           <label for="model">Model</label>
           <div class="model-row">
-            <input
-              id="model"
-              name="model"
-              type="search"
-              list="modelOptions"
-              value="gemini-2.5-flash"
-              autocomplete="off"
-              placeholder="Search models..."
-              required
-            />
+            <select id="model" name="model" required></select>
             <button class="icon-button" id="loadModels" type="button">Load models</button>
           </div>
-          <datalist id="modelOptions"></datalist>
           <p class="form-note" id="modelStatus">
             Search Gemini models, or load every Gemini model available to your API key.
           </p>

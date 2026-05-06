@@ -19,7 +19,6 @@ const keyForm = document.querySelector("#keyForm");
 const chatForm = document.querySelector("#chatForm");
 const apiKeyInput = document.querySelector("#apiKey");
 const modelInput = document.querySelector("#model");
-const modelOptions = document.querySelector("#modelOptions");
 const modelStatus = document.querySelector("#modelStatus");
 const toggleKeyButton = document.querySelector("#toggleKey");
 const loadModelsButton = document.querySelector("#loadModels");
@@ -246,12 +245,21 @@ async function clearBackendSession() {
 }
 
 function populateModelOptions(models) {
-  modelOptions.innerHTML = "";
+  const previous = modelInput.value || "gemini-2.5-flash";
+  modelInput.innerHTML = "";
 
-  for (const model of [...new Set(models)]) {
+  const unique = [...new Set(models)];
+  for (const model of unique) {
     const option = document.createElement("option");
     option.value = model;
-    modelOptions.append(option);
+    option.textContent = model;
+    modelInput.append(option);
+  }
+
+  if (unique.includes(previous)) {
+    modelInput.value = previous;
+  } else if (unique.length) {
+    modelInput.value = unique[0];
   }
 }
 
