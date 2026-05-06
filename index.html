@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chatbot Starter</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="setup-panel" id="setupPanel" aria-labelledby="setupTitle">
+        <div class="setup-copy">
+          <p class="eyebrow">Gemini chatbot</p>
+          <h1 id="setupTitle">Enter your Gemini API key to start chatting.</h1>
+          <p>
+            Your key is kept on the local backend for this session. The browser
+            only keeps a session cookie.
+          </p>
+        </div>
+
+        <form class="key-form" id="keyForm">
+          <label for="apiKey">Gemini API key</label>
+          <div class="key-row">
+            <input
+              id="apiKey"
+              name="apiKey"
+              type="password"
+              autocomplete="current-password"
+              placeholder="AIza..."
+              required
+            />
+            <button class="icon-button" id="toggleKey" type="button" aria-label="Show API key">
+              <span aria-hidden="true">Show</span>
+            </button>
+          </div>
+
+          <label for="model">Model</label>
+          <div class="model-row">
+            <input
+              id="model"
+              name="model"
+              type="search"
+              list="modelOptions"
+              value="gemini-2.5-flash"
+              autocomplete="off"
+              placeholder="Search models..."
+              required
+            />
+            <button class="icon-button" id="loadModels" type="button">Load models</button>
+          </div>
+          <datalist id="modelOptions"></datalist>
+          <p class="form-note" id="modelStatus">
+            Search Gemini models, or load every Gemini model available to your API key.
+          </p>
+
+          <button class="primary-button" type="submit">Start chat</button>
+          <button class="secondary-button" id="previewChat" type="button">Preview chat</button>
+        </form>
+      </section>
+
+      <section class="chat-panel hidden" id="chatPanel" aria-label="Chatbot">
+        <header class="chat-header">
+          <div>
+            <p class="eyebrow">Gemini chatbot</p>
+            <h1>Ask anything</h1>
+          </div>
+          <div class="header-actions">
+            <button class="secondary-button" id="changeKey" type="button">API key</button>
+            <button class="secondary-button" id="clearChat" type="button">Clear</button>
+          </div>
+        </header>
+
+        <div class="messages" id="messages" aria-live="polite">
+          <article class="message model">
+            <div class="avatar" aria-hidden="true">AI</div>
+            <div class="bubble">
+              <p>Hi. Send a message and I will answer using your Gemini API key.</p>
+            </div>
+          </article>
+        </div>
+
+        <form class="composer" id="chatForm">
+          <label class="sr-only" for="prompt">Message</label>
+          <textarea
+            id="prompt"
+            name="prompt"
+            rows="1"
+            placeholder="Type your message..."
+            required
+          ></textarea>
+          <button class="send-button" id="sendButton" type="submit" aria-label="Send message">
+            Send
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
