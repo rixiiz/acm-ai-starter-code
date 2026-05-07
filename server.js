@@ -1,9 +1,10 @@
 const crypto = require("node:crypto");
 const fs = require("node:fs");
 const http = require("node:http");
+const os = require("node:os");
 const path = require("node:path");
 
-const HOST = "127.0.0.1";
+const HOST = process.env.HOST || "127.0.0.1";
 const PORT = Number(process.env.PORT || 8000);
 const GEMINI_API_BASE_URL = "https://generativelanguage.googleapis.com/v1beta";
 const SESSION_COOKIE = "gemini_chat_session";
@@ -30,8 +31,32 @@ const server = http.createServer(async (request, response) => {
 });
 
 server.listen(PORT, HOST, () => {
-  console.log(`Chatbot running at http://${HOST}:${PORT}`);
+  console.log(`Open at http://localhost:${PORT}`);
+
+  const lanUrls = getLanUrls(HOST, PORT);
+  if (lanUrls.length > 0) {
+    console.log("Also reachable on your network:");
+    for (const url of lanUrls) {
+      console.log(`  ${url}`);
+    }
+  }
 });
+
+function getLanUrls(host, port) {
+  if (host !== "0.0.0.0" && host !== "::") {
+    return [];
+  }
+
+  const urls = [];
+  for (const interfaces of Object.values(os.networkInterfaces())) {
+    for (const iface of interfaces || []) {
+      if (iface.family === "IPv4" && !iface.internal) {
+        urls.push(`http://${iface.address}:${port}`);
+      }
+    }
+  }
+  return urls;
+}
 
 async function handleApi(request, response) {
   if (request.method === "GET" && request.url === "/api/session") {
